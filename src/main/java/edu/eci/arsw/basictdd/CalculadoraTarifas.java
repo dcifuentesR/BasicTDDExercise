@@ -38,7 +38,20 @@ public class CalculadoraTarifas {
      */
     public float calculoTarifa(float tarifaBase, int diasAntelacion, int edad) throws ExcepcionParametrosInvalidos{
        
-        return 0f;
+        if (tarifaBase<0 || diasAntelacion<0 || edad < 0 || edad > 120){
+            throw new ExcepcionParametrosInvalidos("Invalid parameters");
+        }
+        if (diasAntelacion > 20){
+            tarifaBase=tarifaBase-(tarifaBase*0.15f);
+        }
+        else if (edad < 18){
+            tarifaBase=tarifaBase-(tarifaBase*0.05f);
+        }
+        else if (edad >= 65){//No cumple con la especificacion, deberia ser edad>65
+            tarifaBase=tarifaBase-(tarifaBase*0.8f);// el porcentaje esta mal, deberia ser 0.08
+        }
+        //No se esta acumulando el descuento
+        return tarifaBase; 
 
     }
 
